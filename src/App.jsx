@@ -1,35 +1,79 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import ModalComponent from './components/ModalComponent';
+import './App.css';
+import FormModal from './components/FormModal';
+import DynamicContentModal from './components/DynamicContentModal';
+import CustomStyledModal from './components/Customization Options';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [isOpen, setIsOpen] = useState(false); // State to track modal visibility
+  const [isOpenForm, setIsOpenForm] = useState(false);
+  const[isStyledModalOpen, setIsStyledModalOpen] = useState(false);
 
+
+  // Function to open the modal
+  const openModal = () => setIsOpen(true);
+
+  // Function to close the modal
+  const closeModal = () => setIsOpen(false);
+
+  // Function to open the modal
+  const openFormModal = () => setIsOpenForm(true);
+
+  // Function to close the modal
+  const closeFormModal = () => setIsOpenForm(false);
+
+ 
+
+  // Function to open the modal
+  const openStyledModal = () => setIsStyledModalOpen(true);
+
+  // Function to close the modal
+  const closeStyledModal = () => setIsStyledModalOpen(false);
   return (
-    <>
+    <div>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+        <h1>React Modal Example</h1>
+        <button onClick={openModal}>Open Modal</button>
 
-export default App
+        <ModalComponent isOpen={isOpen} closeModal={closeModal} />
+      </div>
+      <div>
+        <h1>React Form Modal Example</h1>
+        <button onClick={openFormModal}>Open Form Modal</button>
+
+        {/* Call the ModalComponent and pass necessary props */}
+        <FormModal isOpen={isOpenForm} closeModal={closeFormModal} />
+      </div>
+      <div>
+        <DynamicContentModal />
+      </div>
+
+      <h1 style={{ textAlign: 'center' }}>React Modal Customization Example</h1>
+      <div style={{ textAlign: 'center' }}>
+        {/* Button to trigger the opening of the modal */}
+        <button
+          onClick={openStyledModal}
+          style={{
+            padding: '10px 20px',
+            backgroundColor: '#28a745',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            fontSize: '16px',
+            transition: 'background-color 0.3s',
+          }}
+        >
+          Open Modal
+        </button>
+      </div>
+
+      <div>
+        <CustomStyledModal isStyledModalOpen={isStyledModalOpen} closeStyledModal={closeStyledModal} />
+      </div>
+    </div>
+  );
+};
+
+export default App;
